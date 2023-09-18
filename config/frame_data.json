@@ -1,0 +1,6 @@
+{
+    "bird_animation":{
+        "size":[16,16],
+        "duration":[6,6,6,3,3,3]
+    }
+}

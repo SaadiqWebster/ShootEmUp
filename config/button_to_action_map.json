@@ -1,0 +1,10 @@
+{
+    "7":"start",
+    "11":"up", "15":"up",
+    "12":"down", "16":"down",
+    "13":"left", "17":"left",
+    "14":"right", "18":"right",
+    "0":"shoot 1", "2":"shoot 1",
+    "3":"shoot 2",
+    "1":"shoot 3"
+}

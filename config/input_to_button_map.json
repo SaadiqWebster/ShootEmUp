@@ -1,0 +1,100 @@
+{
+    "Keyboard_1": {
+        "w":11,
+        "s":12,
+        "a":13,
+        "d":14,
+        "space":7,
+        "t":0
+    },
+
+    "Keyboard_2": {
+        "up":11,
+        "down":12,
+        "left":13,
+        "right":14,
+        "return":7,
+        "m":0
+    },
+
+    "Xbox Series X Controller": {
+        "0":0,
+        "1":1,
+        "2":2,
+        "3":3,
+        "7":7,
+        "d-up":11,
+        "d-down":12,
+        "d-left":13,
+        "d-right":14,
+        "a-up":15,
+        "a-down":16,
+        "a-left":17,
+        "a-right":18
+    },
+
+    "Xbox 360 Controller": {
+        "0":0,
+        "1":1,
+        "2":2,
+        "3":3,
+        "7":7,
+        "d-up":11,
+        "d-down":12,
+        "d-left":13,
+        "d-right":14,
+        "a-up":15,
+        "a-down":16,
+        "a-left":17,
+        "a-right":18
+    },
+
+    "PS4 Controller": {
+        "0":0,
+        "1":1,
+        "2":2,
+        "3":3,
+        "6":7,
+        "11":11,
+        "12":12,
+        "13":13,
+        "14":14,
+        "a-up":15,
+        "a-down":16,
+        "a-left":17,
+        "a-right":18
+    },
+
+    "Nintendo Switch Pro Controller": {
+        "0":0,
+        "1":1,
+        "3":2,
+        "2":3,
+        "6":7,
+        "11":11,
+        "12":12,
+        "13":13,
+        "14":14,
+        "a-up":15,
+        "a-down":16,
+        "a-left":17,
+        "a-right":18
+    },
+
+    "Wireless Gamepad": {
+        "0":0,
+        "1":1,
+        "2":2,
+        "3":3,
+        "8":7,
+        "9":7,
+        "d-up":11,
+        "d-down":12,
+        "d-left":13,
+        "d-right":14,
+        "a-up":15,
+        "a-down":16,
+        "a-left":17,
+        "a-right":18
+    }
+}
