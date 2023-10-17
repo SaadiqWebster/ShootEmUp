@@ -4,7 +4,7 @@ from objects import Object
 
 class SubShip(Object):
     def __init__(self,x,y):
-        super().__init__(x,y,10,10)
+        super().__init__(x,y,8,8)
 
     def update(self, x_pos, y_pos):
         self.x_cor += (x_pos-self.x_cor) / 3
@@ -12,14 +12,16 @@ class SubShip(Object):
         self.set_position()
 
 class PlayerShip(Object):
-    def __init__(self,x,y, player_id, pos_limit, animation_database):
-        super().__init__(x,y,20,20)
+    def __init__(self,x,y, player_id, pos_limit, animation_database, tileset_database):
+        super().__init__(x,y,16,16)
         self.spawn_pos = [float(x),float(y)]
         self.pos_limit = pos_limit
         self.player_id = player_id
         self.bullets = []
         self.subships = []
         self.subship_offsets = [(-13,17),(23,17),(-26,21),(36,21)]
+        self.bullet_color_palette = [(234, 242, 87), (143, 204, 73), (45, 173, 107)]
+        self.bullet_palette_pointer = 0
         self.score = 0
         self.lives = 2
         self.exp = 0
@@ -34,9 +36,10 @@ class PlayerShip(Object):
             'despawn':0
             }
         self.animation_list = ['bird_animation']
-        self.animation_database = self.load_animation(animation_database,self.animation_list)
+        self.animation_database = self.load_from_database(animation_database, self.animation_list)
+        self.bullet_tile = self.load_from_database(tileset_database, ['bullet_playership'])
         self.animation_offset = [2,2]
-
+    
     def increase_exp(self, amount):
         if self.level < 3:
             self.exp += amount
@@ -51,9 +54,30 @@ class PlayerShip(Object):
         self.bullets.clear()
         return bullet_list
 
-    def shoot_bullet(self,x,y):
-        bullet = b.Bullet(x,y,math.pi,32)
-        self.bullets.append(bullet)
+    def palette_swap(self, img, old_color, new_color):
+        img_copy = pygame.Surface(img.get_size())
+        img_copy.fill(new_color)
+        img.set_colorkey(old_color)
+        img_copy.blit(img,(0,0))
+        return img_copy
+    
+    def shoot_bullet_main(self):
+        bullet = self.palette_swap(self.bullet_tile['bullet_playership'], (255,255,255), self.bullet_color_palette[self.bullet_palette_pointer])
+        bullet.set_colorkey((0,0,0))
+        bullet.blit(bullet, (0,0))
+        
+        leftbullet = b.Bullet(bullet, self.x_cor, self.y_cor-16, math.pi, 8)
+        rightbullet = b.Bullet(bullet, self.x_cor+12, self.y_cor-16, math.pi, 8)
+        self.bullets.append(leftbullet)
+        self.bullets.append(rightbullet)
+
+    def shoot_bullet_sub(self):
+        bullet = self.palette_swap(self.bullet_tile['bullet_playership'], (255,255,255), self.bullet_color_palette[self.bullet_palette_pointer])
+        bullet.set_colorkey((0,0,0))
+        bullet.blit(bullet, (0,0))
+
+        for subship in self.subships:
+            self.bullets.append(b.Bullet(bullet, subship.x_cor+2, subship.y_cor-16, math.pi, 8))
 
     def set_position(self):
         if self.state == 'ACTIVE':
@@ -90,11 +114,11 @@ class PlayerShip(Object):
             self.subship_offsets = [(-12,17),(21,17),(-20,21),(29,21)]
             
         if (_input["shoot 1"] or _input["shoot 2"] or _input["shoot 3"]) and self.timer['bullet_cooldown'] <= 0:
-                self.shoot_bullet(self.x_cor+8,self.y_cor-6)
-                for subship in self.subships:
-                    self.shoot_bullet(subship.x_cor+2,subship.y_cor-6)
-                self.timer['bullet_cooldown'] = 2
-
+            self.shoot_bullet_main()
+            self.shoot_bullet_sub()
+            self.timer['bullet_cooldown'] = 4
+            self.bullet_palette_pointer = (self.bullet_palette_pointer+1) % len(self.bullet_color_palette)
+    
     def update(self, _input, collisions, dT):
         self.update_timers(dT)
 

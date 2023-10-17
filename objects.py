@@ -23,13 +23,11 @@ class Object:
             normal = [(vector[i] / magnitude) * speed for i in range(len(vector))] 
         return normal
     
-    def load_animation(self, database, id_list):
-        animation_database = {}
-        for animation_id in id_list:
-            animation_database[animation_id] = database[animation_id]
-        if animation_database:
-            self.set_animation(id_list[0])
-        return animation_database
+    def load_from_database(self, database, id_list):
+        data = {}
+        for asset_id in id_list:
+            data[asset_id] = database[asset_id]
+        return data
 
     def set_animation(self, animation, frame=0, play_type='LOOP'):
         self.current_frame = frame

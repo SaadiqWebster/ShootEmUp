@@ -30,7 +30,9 @@ class Enemy(Object):
     
     def shoot_bullet(self,x,y,angle,speed,num=1):
         for i in range(num):
-            bullet = b.Bullet(x,y, angle+((1/num)*2*math.pi*i), speed)
+            bullet = pygame.Surface((8,8))
+            bullet.fill((255,255,255))
+            bullet = b.Bullet(bullet, x, y, angle+((1/num)*2*math.pi*i), speed)
             self.bullets.append(bullet)
 
     def update(self, dT):

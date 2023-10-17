@@ -35,7 +35,7 @@ class Engine:
         self.joysticks = []
 
         # game set-up
-        self.DEBUG = True
+        self.DEBUG = False
         self.CAMERA_SIZE = CAMERA_SIZE
         self.WINDOW_SIZE = CAMERA_SIZE
         self.MAX_PLAYERS = MAX_PLAYERS
@@ -268,7 +268,6 @@ class Engine:
                 for i in range(pygame.joystick.get_count()):
                     joystick = pygame.joystick.Joystick(i)
                     self.joysticks[joystick.get_instance_id()] = joystick
-                print(self.joysticks)
                 
             if event.type == pygame.JOYDEVICEREMOVED:
                 self.joysticks.clear()
